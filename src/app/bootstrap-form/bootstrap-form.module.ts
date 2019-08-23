@@ -5,7 +5,12 @@ import { BootstrapFormGroupComponent } from './bootstrap-form-group/bootstrap-fo
 
 
 @NgModule({
-  declarations: [BootstrapFormGroupComponent],
+  declarations: [
+    BootstrapFormGroupComponent
+  ],
+  exports: [
+    BootstrapFormGroupComponent
+  ],
   imports: [
     CommonModule
   ]

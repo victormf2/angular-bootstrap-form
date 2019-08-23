@@ -13,4 +13,9 @@ ng g component bootstrap-form/bootstrap-form-group -m bootstrap-form
 added FormsModule
 added user form to app component to check bootstrap was working
 
-adding submit detection (I used NgbTooltipModule)
+added submit detection (I used NgbTooltipModule)
+
+added host css to BootstrapFormGroupComponent (.form-group and display: block)
+added BootstrapFormGroupComponent to BootstrapFormModule exports
+added BootstrapFormModule
+replaced inputs with form-group component

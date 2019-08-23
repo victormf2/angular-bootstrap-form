@@ -6,6 +6,7 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap'
 import { AppComponent } from './app.component';
 import { AppToastsComponent } from './app-toasts/app-toasts.component';
 import { AppToastsService } from './app-toasts/app-toasts.service';
+import { BootstrapFormModule } from './bootstrap-form/bootstrap-form.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AppToastsService } from './app-toasts/app-toasts.service';
   imports: [
     BrowserModule,
     FormsModule,
-    NgbToastModule
+    NgbToastModule,
+    BootstrapFormModule
   ],
   providers: [AppToastsService],
   bootstrap: [AppComponent]
