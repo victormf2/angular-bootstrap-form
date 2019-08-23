@@ -23,3 +23,6 @@ replaced inputs with form-group component
 mimic bootstrap is-invalid class (detail to touched and dirty)
 
 adding submit behavior
+
+custom default error messages
+fixed error messages on submit

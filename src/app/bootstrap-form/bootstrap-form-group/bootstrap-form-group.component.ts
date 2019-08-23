@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Directive, Self, Host, Optional, SkipSelf, ElementRef } from '@angular/core';
-import { NgForm, NgControl, NgModel } from '@angular/forms';
-import { untilDestroyed } from 'ngx-take-until-destroy'
+import { Component, Directive, ElementRef, Host, Input, OnInit, Optional, Self, SkipSelf } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { EMPTY, merge, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'form-group',
@@ -29,20 +31,92 @@ export class BootstrapFormControlDirective {
     @Optional() @Host() private form: NgForm,
     @Optional() @SkipSelf() @Host() private formGroup: BootstrapFormGroupComponent,
     @Optional() @Self() private model: NgModel,
-    @Self() private element: ElementRef,
+    @Self() private elementRef: ElementRef,
   ) {
 
   }
 
+  get element(): HTMLElement {
+    return this.elementRef.nativeElement
+  }
+
+  get submit$(): Observable<Event> {
+    return this.form ? this.form.ngSubmit.pipe(untilDestroyed(this)) : EMPTY
+  }
+
   ngOnInit() {
-    if (this.form) {
-      this.form.ngSubmit.pipe(
-        untilDestroyed(this)
+    this.submit$.subscribe(() => {
+      this.element.classList.add('form-submitted')
+    })
+
+    if (this.model) {
+      merge(
+        this.submit$,
+        this.model.statusChanges.pipe(
+          filter(status => status === "INVALID")
+        )
+      ).pipe(
+        filter(() => !!this.model.errors)
       ).subscribe(() => {
-        this.element.nativeElement.classList.add('form-submitted')
+        const errorKey = Object.keys(this.model.errors)[0]
+        const errorValue = this.model.errors[errorKey]
+        const label = this.getLabel()
+        const errorMessage = defaultErrorMessages[errorKey](label, errorValue)
+        this.setErrorMessage(errorMessage)
       })
     }
   }
 
   ngOnDestroy(){}
+
+  getLabel(): string {
+    const formGroupLabel = this.formGroup && this.formGroup.label
+    if (formGroupLabel) {
+      return formGroupLabel
+    }
+    const labelElement = this.getLabelElement()
+    if (labelElement) {
+      return labelElement.textContent
+    }
+    return this.element.getAttribute("name")
+  }
+
+  getLabelElement(): Element {
+    let sibling: Element = this.element
+    while(sibling.previousElementSibling) {
+      sibling = sibling.previousElementSibling
+      if (sibling.tagName === 'label') {
+        return sibling
+      }
+    }
+    return null
+  }
+
+  setErrorMessage(errorMessage: string) {
+    if (this.formGroup) {
+      this.formGroup.errorMessage = errorMessage
+    } else {
+      const errorMessageElement = this.getErrorMessageElement()
+      if (errorMessageElement) {
+        errorMessageElement.textContent = errorMessage
+      }
+    }
+  }
+
+  getErrorMessageElement(): Element {
+    let sibling: Element = this.element
+    while(sibling.nextElementSibling) {
+      sibling = sibling.nextElementSibling
+      if (sibling.classList.contains('invalid-feedback')) {
+        return sibling
+      }
+    }
+    return null
+  }
+}
+
+const defaultErrorMessages = {
+  required: (label) => `This field is required.`,
+  email: (label) => `This field must be a valid email address.`,
+  minlength: (label, {requiredLength, actualLength}) => `${label} length is ${actualLength} but must be at least ${requiredLength}`,
 }
