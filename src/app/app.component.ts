@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppToastsService } from './app-toasts/app-toasts.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'bootstrap-form';
   user = new User()
+  
+  constructor(public toastsService: AppToastsService) {
+    
+  }
+
+  onSubmit() {
+    this.toastsService.show(JSON.stringify(this.user))
+  }
 }
 
 class User {

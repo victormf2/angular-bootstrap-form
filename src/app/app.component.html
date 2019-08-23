@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center mt-5">
-  <form style="width:400px">
+  <form style="width:400px" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Name</label>
       <input id="name" name="name" [(ngModel)]="user.name" class="form-control">
@@ -12,5 +12,8 @@
       <label for="password">Password</label>
       <input type="password"  id="password" name="password" [(ngModel)]="user.password" class="form-control">
     </div>
+    <button type="sumit" class="btn btn-primary">Submit</button>
   </form>
 </div>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

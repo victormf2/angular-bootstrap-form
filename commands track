@@ -10,5 +10,7 @@ add to angular.json .projects.bootstrap-form.architect.build.options.styles[0]
 ng g module bootstrap-form
 ng g component bootstrap-form/bootstrap-form-group -m bootstrap-form
 
-add FormsModule
+added FormsModule
 added user form to app component to check bootstrap was working
+
+adding submit detection (I used NgbTooltipModule)
