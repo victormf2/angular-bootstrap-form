@@ -1,0 +1,14 @@
+using angular with scss
+using ng-bootstrap
+According docs (https://ng-bootstrap.github.io/#/getting-started)
+5.x.x	8.0.0	4.3.1
+npm i --save bootstrap@3.4.1 @ng-bootstrap/ng-bootstrap
+
+add to angular.json .projects.bootstrap-form.architect.build.options.styles[0]
+"node_modules/bootstrap/dist/css/bootstrap.min.css",
+
+ng g module bootstrap-form
+ng g component bootstrap-form/bootstrap-form-group -m bootstrap-form
+
+add FormsModule
+added user form to app component to check bootstrap was working

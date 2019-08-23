@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'bootstrap-form';
+  user = new User()
+}
+
+class User {
+  name: string
+  email: string
+  password: string
 }
