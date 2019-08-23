@@ -1,13 +1,13 @@
 <div class="d-flex justify-content-center mt-5">
   <form style="width:400px" (ngSubmit)="onSubmit()">
     <form-group label="Name">
-      <input id="name" name="name" [(ngModel)]="user.name" class="form-control">
+      <input id="name" name="name" [(ngModel)]="user.name" class="form-control" required>
     </form-group>
     <form-group label="Email">
-      <input type="email" id="email" name="email" [(ngModel)]="user.email" class="form-control">
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" class="form-control" required email>
     </form-group>
     <form-group label="Password">
-      <input type="password"  id="password" name="password" [(ngModel)]="user.password" class="form-control">
+      <input type="password"  id="password" name="password" [(ngModel)]="user.password" class="form-control" required minlength="6">
     </form-group>
     <button type="sumit" class="btn btn-primary">Submit</button>
   </form>

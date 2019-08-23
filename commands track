@@ -19,3 +19,5 @@ added host css to BootstrapFormGroupComponent (.form-group and display: block)
 added BootstrapFormGroupComponent to BootstrapFormModule exports
 added BootstrapFormModule
 replaced inputs with form-group component
+
+mimic bootstrap is-invalid class (detail to touched and dirty)

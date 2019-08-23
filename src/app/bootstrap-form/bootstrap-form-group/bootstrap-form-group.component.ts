@@ -9,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BootstrapFormGroupComponent implements OnInit {
 
   @Input() label: string
+  @Input() errorMessage: string = "Invalid field."
 
   constructor() { }
 
