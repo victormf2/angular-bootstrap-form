@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BootstrapFormGroupComponent, BootstrapFormControlDirective } from './bootstrap-form-group/bootstrap-form-group.component';
+import { BootstrapFormGroupComponent, BootstrapFormControlDirective, BootstrapFormDirective } from './bootstrap-form-group/bootstrap-form-group.component';
 
 
 
 @NgModule({
   declarations: [
     BootstrapFormGroupComponent,
-    BootstrapFormControlDirective
+    BootstrapFormControlDirective,
+    BootstrapFormDirective
   ],
   exports: [
     BootstrapFormGroupComponent,
-    BootstrapFormControlDirective
+    BootstrapFormControlDirective,
+    BootstrapFormDirective
   ],
   imports: [
     CommonModule

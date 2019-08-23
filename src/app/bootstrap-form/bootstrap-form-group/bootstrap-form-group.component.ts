@@ -1,8 +1,32 @@
-import { Component, Directive, ElementRef, Host, Input, OnInit, Optional, Self, SkipSelf } from '@angular/core';
+import { Component, Directive, ElementRef, Host, Input, OnInit, Optional, Self, SkipSelf, Output, EventEmitter } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { EMPTY, merge, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+@Directive({
+  selector: 'form'
+})
+export class BootstrapFormDirective implements OnInit {
+
+  @Output() validSubmit = new EventEmitter<Event>()
+
+  constructor(
+    @Optional() @Self() private form: NgForm,
+  ) {
+
+  }
+
+  ngOnInit(): void {
+    if (!this.form) {
+      return
+    }
+    this.form.ngSubmit.pipe(
+      filter(() => this.form.valid)
+    ).subscribe(this.validSubmit)
+  }
+
+}
 
 @Component({
   selector: 'form-group',
